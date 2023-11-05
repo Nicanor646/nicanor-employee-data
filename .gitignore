@@ -157,4 +157,5 @@ cython_debug/
 # Folders
 apienv/*
 data/*
+docker_data/*
 tmp/*
