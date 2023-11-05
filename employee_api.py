@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 UPLOAD_FOLDER = os.environ.get("EMPLOYEE_API_UPLOAD_FOLDER", "tmp")
-supported_data_types = ["departments", "jobs", "employees" ]
+supported_data_types = [ "department", "job", "employee" ]
 
 app = Flask(__name__)
 api = Api(app)
