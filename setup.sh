@@ -17,3 +17,5 @@ docker run -d --name employee_data_db \
            -e POSTGRES_USER=$EMPLOYEE_DB_USER \
            -e POSTGRES_PASSWORD=$EMPLOYEE_DB_PASSWORD \
            postgres
+
+python3 db/models.py
