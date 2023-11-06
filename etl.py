@@ -21,12 +21,17 @@ class CSVETL():
 
     def etl(self):
         # Initialize a chunk reader
+        print(self.DataType.get_column_types())
         chunk_reader = pd.read_csv(self.csv_file,
-                                   names=self.DataType.get_columns(),
+                                   names=self.DataType.get_columns(), 
+                                   dtype=self.DataType.get_column_types(),
+                                   parse_dates=self.DataType.get_date_columns(),
                                    chunksize=CHUNK_SIZE)
         with DbSessionManager(self.DataType) as db_session:
             for chunk in chunk_reader:
-                chunk_row_list = chunk.to_dict(orient='records')
+                # Dropping rows with missing values
+                chunk_row_list = chunk.dropna().to_dict(orient='records')
+                # TODO: Check data quality here
                 db_session.insert_data(chunk_row_list)
 
             

@@ -10,16 +10,40 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
 
-
-
-
-
-
 class Base(DeclarativeBase):
     @classmethod
     def get_columns(cls):
         inst = inspect(cls)
-        return [c_attr.key for c_attr in inst.mapper.column_attrs]
+        columns = inst.c
+        return columns.keys()
+    
+    @classmethod
+    def get_column_types(cls):
+        inst = inspect(cls)
+        columns = inst.c
+        column_names = columns.keys()
+        column_types={}
+        for column in column_names:
+            python_type = str(columns[column].type.python_type).split("'")[1]
+            if 'datetime' in python_type:
+                column_types[column] = 'str'
+            elif python_type == 'int':
+                column_types[column] = 'Int64'
+            else:
+                column_types[column] = python_type
+        return column_types
+
+    @classmethod
+    def get_date_columns(cls):
+        inst = inspect(cls)
+        columns = inst.c
+        column_names = columns.keys()
+        date_columns=[]
+        for column in column_names:
+            python_type = str(columns[column].type.python_type).split("'")[1]
+            if 'datetime' in python_type:
+                date_columns.append(column)
+        return date_columns
         
 
 class Department(Base):
@@ -61,5 +85,6 @@ class Employee(Base):
         self.name = name
 
 if __name__ == "__main__":
+    from db_session_manager import get_engine
     engine = get_engine()
     Base.metadata.create_all(engine)
