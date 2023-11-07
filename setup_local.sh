@@ -22,3 +22,5 @@ docker run -d --name employee_data_db \
 echo "Waiting 5 seconds for the database to be available"
 sleep 5
 python3 db/models.py
+
+mkdir tmp
