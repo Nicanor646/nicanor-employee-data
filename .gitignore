@@ -151,7 +151,11 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# Mac file attributes file
 .DS_Store
 
+# Folders
 apienv/*
 data/*
+docker_data/*
+tmp/*
