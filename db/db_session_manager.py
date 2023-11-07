@@ -2,6 +2,7 @@ import os
 
 from sqlalchemy import create_engine
 from sqlalchemy import insert
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 
@@ -38,3 +39,6 @@ class DbSessionManager():
         if commit:
             self.db_session.commit()
         return 0
+    
+    def run_query(self, sql_query, values = None):
+        return self.db_session.execute(text(sql_query), values)

@@ -1,11 +1,14 @@
 import os
+import json
 from flask import Flask, request
 from flask_restful import Resource, Api
 
 from etl import CSVETL
+from report import Report
 
 UPLOAD_FOLDER = os.environ.get("EMPLOYEE_API_UPLOAD_FOLDER", "tmp")
 supported_data_types = [ "department", "job", "employee" ]
+supported_reports = [ "employees_by_q" ]
 
 app = Flask(__name__)
 api = Api(app)
@@ -49,6 +52,19 @@ class CSVEndpoint(Resource):
             return { "message": f"uploading {file_path} to {data_type}"}, 200
 
 api.add_resource(CSVEndpoint, '/csv/<string:data_type>')
+
+class ReportEndpoint(Resource):
+    def get(self,report_type):
+        if report_type not in supported_reports:
+            return { "message": "Report is not implemented"}, 400
+        report = Report()
+        match report_type:
+            case "employees_by_q":
+                year = int(request.args.get('year', 2021) )
+                report_results = report.employees_by_q(year)
+                return {"results": report_results}
+
+api.add_resource(ReportEndpoint, '/reports/<string:report_type>')
 
 if __name__ == '__main__':
     app.run(debug=True)
