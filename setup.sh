@@ -20,7 +20,7 @@ docker run -d --name employee_app \
            -e EMPLOYEE_DB_NAME=$EMPLOYEE_DB_NAME \
            -e EMPLOYEE_DB_USER=$EMPLOYEE_DB_USER \
            -e EMPLOYEE_DB_PASSWORD=$EMPLOYEE_DB_PASSWORD \
-           -e EMPLOYEE_DB_PORT=$EMPLOYEE_DB_PORT \
+           -e EMPLOYEE_DB_PORT=5432 \
            -e EMPLOYEE_DB_HOST=employee_data_db \
            -p 8022:8022 \
            --net employee_app_net \
