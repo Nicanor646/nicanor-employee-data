@@ -3,10 +3,6 @@ echo "Building docker"
 
 docker network create employee_app_net
 
-docker build -t employee_api .
-
-mkdir -p docker_data/db
-
 docker run -d --name employee_data_db \
            -p 5432:5432 \
            -v $PWD/docker_data/db:/var/lib/postgresql/data \
@@ -15,6 +11,10 @@ docker run -d --name employee_data_db \
            -e POSTGRES_PASSWORD=$EMPLOYEE_DB_PASSWORD \
            --net employee_app_net
            postgres
+
+docker build -t employee_api .
+
+mkdir -p docker_data/db
 
 docker run -d --name employee_app \
            -e EMPLOYEE_DB_NAME=$EMPLOYEE_DB_NAME \
