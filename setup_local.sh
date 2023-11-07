@@ -6,7 +6,7 @@ python3 -m venv apienv
 echo "Activating virtual environment"
 source apienv/bin/activate
 # Install the required libraries
-pip install -r requirements-local.txt
+pip install -r requirements_local.txt
 
 mkdir -p docker_data/db
 
