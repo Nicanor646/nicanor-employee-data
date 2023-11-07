@@ -9,7 +9,7 @@ docker run -d --name employee_data_db \
            -e POSTGRES_DB=$EMPLOYEE_DB_NAME \
            -e POSTGRES_USER=$EMPLOYEE_DB_USER \
            -e POSTGRES_PASSWORD=$EMPLOYEE_DB_PASSWORD \
-           --net employee_app_net
+           --net employee_app_net \
            postgres
 
 docker build -t employee_api .
