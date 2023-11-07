@@ -8,7 +8,7 @@ from report import Report
 
 UPLOAD_FOLDER = os.environ.get("EMPLOYEE_API_UPLOAD_FOLDER", "tmp")
 supported_data_types = [ "department", "job", "employee" ]
-supported_reports = [ "employees_by_q" ]
+supported_reports = [ "employees_by_q", "departments_over_mean" ]
 
 app = Flask(__name__)
 api = Api(app)
@@ -60,6 +60,10 @@ class ReportEndpoint(Resource):
         report = Report()
         match report_type:
             case "employees_by_q":
+                year = int(request.args.get('year', 2021) )
+                report_results = report.employees_by_q(year)
+                return {"results": report_results}
+            case "departments_over_mean":
                 year = int(request.args.get('year', 2021) )
                 report_results = report.employees_by_q(year)
                 return {"results": report_results}
