@@ -11,7 +11,8 @@ def get_engine():
     DB_USER = os.environ.get("EMPLOYEE_DB_USER")
     DB_PASSWORD = os.environ.get("EMPLOYEE_DB_PASSWORD")
     DB_HOST = os.environ.get("EMPLOYEE_DB_HOST", "localhost")
-    SQLALCHEMY_DATABASE_URI=f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}'
+    DB_PORT = os.environ.get("EMPLOYEE_DB_PORT", "5432")
+    SQLALCHEMY_DATABASE_URI=f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
     return engine
 
