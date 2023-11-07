@@ -19,4 +19,6 @@ docker run -d --name employee_data_db \
            -e POSTGRES_PASSWORD=$EMPLOYEE_DB_PASSWORD \
            postgres
 
+echo "Waiting 5 seconds for the database to be available"
+sleep 5
 python3 db/models.py
