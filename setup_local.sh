@@ -24,3 +24,5 @@ sleep 5
 python3 db/models.py
 
 mkdir tmp
+
+chmod 700 run_local.sh
