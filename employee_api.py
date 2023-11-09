@@ -65,7 +65,7 @@ class ReportEndpoint(Resource):
                 return {"results": report_results}
             case "departments_over_mean":
                 year = int(request.args.get('year', 2021) )
-                report_results = report.employees_by_q(year)
+                report_results = report.departments_over_mean(year)
                 return {"results": report_results}
 
 api.add_resource(ReportEndpoint, '/reports/<string:report_type>')

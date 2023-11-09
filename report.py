@@ -17,7 +17,7 @@ class Report():
             results = db_session.run_query(sql_query,values)
             return [ r._asdict() for r in results ]
     
-    def employees_by_q(self,year=2021):
+    def departments_over_mean(self,year=2021):
         with DbSessionManager(None) as db_session, \
             open(SQL_DEPARTMENTS_OVER_MEAN) as sql_file:
             sql_query = sql_file.read()

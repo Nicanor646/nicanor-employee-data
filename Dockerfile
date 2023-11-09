@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the current directory contents into the container at /app
 COPY . /app/
 
-RUN mkdir tmp
+RUN mkdir -p tmp
 
 # Expose a port for Gunicorn (replace 8000 with your desired port)
 EXPOSE 8022
