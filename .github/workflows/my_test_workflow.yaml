@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+env:
+  # Setting an environment variable with the value of a configuration variable
+  env_var: ${{ vars.ENV_CONTEXT_VAR }}
+
+jobs:
+  display-variables:
+    name: my-variables-test-job
+    # You can use configuration variables with the `vars` context for dynamic jobs
+    if: ${{ vars.USE_VARIABLES == 'true' }}
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+    - name: Use variables
+      run: |
+        echo "repository variable : $MY_REPOSITORY_VARIABLE"
+        echo "environment variable : $MY_TEST_VARIABLE"
+        echo "variable from shell environment : $env_var"
+      env:
+        MY_REPOSITORY_VARIABLE: ${{ vars.MY_REPOSITORY_VARIABLE }}
+        MY_TEST_VARIABLE: ${{ vars.MY_TEST_VARIABLE }}
