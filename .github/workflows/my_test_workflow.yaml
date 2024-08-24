@@ -16,7 +16,7 @@ jobs:
         BRANCH: ${{ github.ref_name }}
       id: split
       run: |
-        if [[ "$BRANCH" == "main" ]]; then echo "fragment=prod"; else echo "fragment=${BRANCH##*_}" >> $GITHUB_ENV
+        if [[ "$BRANCH" == "main" ]]; then echo "fragment=prod"; else echo "fragment=${BRANCH##*_}" fi >> $GITHUB_ENV
     - name: Test variable
       run: |
         echo $fragment
