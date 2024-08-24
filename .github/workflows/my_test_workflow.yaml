@@ -18,7 +18,7 @@ jobs:
       run: echo "fragment=${BRANCH##*_}" >> $GITHUB_OUTPUT
     - name: Test variable
       run: |
-        echo ${{ steps.split.outputs.fragment }}
+        echo $fragment
     - name: Use variables
       run: |
         echo "github ref name: $REF_NAME"
