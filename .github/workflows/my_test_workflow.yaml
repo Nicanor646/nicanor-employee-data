@@ -11,14 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
     steps:
-    - name: Split branch name
-        env:
-          BRANCH: ${{ github.ref_name }}
-        id: split
-        run: echo "::set-output name=fragment::${BRANCH##*-}"
-    - name: Test variable
-        run: |
-          echo ${{ steps.split.outputs.fragment }}
     - name: Use variables
       run: |
         echo "github ref name: $REF_NAME"
