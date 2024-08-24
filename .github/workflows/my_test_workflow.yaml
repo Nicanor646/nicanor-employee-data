@@ -8,7 +8,6 @@ jobs:
   display-variables:
     name: my-variables-test-job
     # You can use configuration variables with the `vars` context for dynamic jobs
-    if: ${{ vars.USE_VARIABLES == 'true' }}
     runs-on: ubuntu-latest
     environment: ${{ github.ref_name }}
     steps:
