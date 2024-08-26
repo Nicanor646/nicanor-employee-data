@@ -23,7 +23,7 @@ jobs:
     steps:
     - name: Test variable step
       run: |
-        echo ${{ needs.set-variables.outputs.fragment }}
+        echo "${{ needs.set-variables.outputs.fragment }}"
   display-variables:
     uses: ./.github/workflows/my_reusable_workflow.yaml
     needs: set-variables
