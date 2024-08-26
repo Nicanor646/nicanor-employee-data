@@ -16,6 +16,9 @@ jobs:
       id: split
       run: |
         if [[ "$BRANCH" == "main" ]]; then echo "fragment=prod"; else echo "fragment=${BRANCH##*_}"; fi >> $GITHUB_OUTPUT
+    - name: Test variable
+      run: |
+        echo ${{steps.split.outputs.fragment}}
   display-variables:
     uses: ./.github/workflows/my_reusable_workflow.yaml
     needs: set-variables
