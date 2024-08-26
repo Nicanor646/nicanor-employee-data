@@ -9,6 +9,8 @@ jobs:
     name: my-variables-test-job
     # You can use configuration variables with the `vars` context for dynamic jobs
     runs-on: ubuntu-latest
+    outputs:
+      fragment: ${{ steps.split.outputs.fragment }}
     steps:
     - name: Split branch name
       env:
