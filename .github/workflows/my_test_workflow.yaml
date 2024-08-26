@@ -5,28 +5,29 @@ env:
   env_var: ${{ vars.ENV_CONTEXT_VAR }}
 
 jobs:
-  display-variables:
+  variables:
     name: my-variables-test-job
     # You can use configuration variables with the `vars` context for dynamic jobs
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name }}
+    outputs:
+      fragment: ${{ steps.split.outputs.fragment }}
     steps:
     - name: Split branch name
       env:
         BRANCH: ${{ github.ref_name }}
       id: split
       run: |
-        if [[ "$BRANCH" == "main" ]]; then echo "fragment=prod"; else echo "fragment=${BRANCH##*_}"; fi >> $GITHUB_ENV
-    - name: Test variable
+        if [[ "$BRANCH" == "main" ]]; then echo "fragment=prod"; else echo "fragment=${BRANCH##*_}"; fi >> $GITHUB_OUTPUT
+  test-variables:
+    name: Test variable job
+    runs-on: ubuntu-latest
+    needs: variables
+    steps:
+    - name: Test variable step
       run: |
-        echo $fragment
-    - name: Use variables
-      run: |
-        echo "github ref name: $REF_NAME"
-        echo "repository variable : $MY_REPOSITORY_VARIABLE"
-        echo "environment variable : $MY_TEST_VARIABLE"
-        echo "variable from shell environment : $env_var"
-      env:
-        REF_NAME: ${{ github.ref_name }}
-        MY_REPOSITORY_VARIABLE: ${{ vars.MY_REPOSITORY_VARIABLE }}
-        MY_TEST_VARIABLE: ${{ vars.MY_TEST_VARIABLE }}
+        echo "${{ needs.variables.outputs.fragment }}"
+  display-variables:
+    uses: ./.github/workflows/my_reusable_workflow.yaml
+    needs: variables
+    with:
+      my-env: ${{ needs.variables.outputs.fragment }}

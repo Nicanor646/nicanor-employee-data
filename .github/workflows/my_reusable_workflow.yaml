@@ -1,0 +1,27 @@
+name: Reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      my-env:
+        required: true
+        type: string
+
+jobs:
+  display-variable-reusable:
+    name: my-variables-test-job
+    # You can use configuration variables with the `vars` context for dynamic jobs
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.my-env }}
+    steps:
+    - name: Use variables
+      run: |
+        echo "My env variable: $MY_ENV"
+        echo "github ref name: $REF_NAME"
+        echo "repository variable : $MY_REPOSITORY_VARIABLE"
+        echo "environment variable : $MY_TEST_VARIABLE"
+      env:
+        MY_ENV: ${{ inputs.my-env }}
+        REF_NAME: ${{ github.ref_name }}
+        MY_REPOSITORY_VARIABLE: ${{ vars.MY_REPOSITORY_VARIABLE }}
+        MY_TEST_VARIABLE: ${{ vars.MY_TEST_VARIABLE }}
