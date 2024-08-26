@@ -23,4 +23,4 @@ jobs:
     uses: ./.github/workflows/my_reusable_workflow.yaml
     needs: set-variables
     with:
-      my-env: ${{needs.set-variables.outputs.fragment}}
+      my-env: ${{ needs.set-variables.outputs.fragment }}
